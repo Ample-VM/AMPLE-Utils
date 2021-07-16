@@ -7,7 +7,7 @@
 #include <string.h>
 
 #include "AMPLE.h"
-#include "File.h"
+#include "NFile.h"
 
 
 #define PRINT_IF_NOT_SILENT(stream, ...)        \
