@@ -21,7 +21,7 @@ typedef struct {
  * Initialize the Argument Parser library
  * @return True upon success and false upon failure
  */
-bool ArgumentParserInitialize();
+bool AMPLE_Utils_ArgumentParser_Initialize();
 
 
 /**
@@ -29,7 +29,7 @@ bool ArgumentParserInitialize();
  * @param argsType Arugment Type to add
  * @return True upon success and false upon failure
  */
-bool ArgumentParserAddArgumentType(ArgumentType* argType);
+bool AMPLE_Utils_ArgumentParser_AddArgumentType(ArgumentType* argType);
 
 /**
  * Adds new Argument Types to the Argument Parser Library
@@ -37,7 +37,7 @@ bool ArgumentParserAddArgumentType(ArgumentType* argType);
  * @param numberOfArgumentTypes Length of the Argument Type array
  * @return True upon success and false upon failure
  */
-bool ArgumentParserAddArgumentTypes(ArgumentType* argumentTypes, int64_t numberOfArgumentTypes);
+bool AMPLE_Utils_ArgumentParser_AddArgumentTypes(ArgumentType* argumentTypes, int64_t numberOfArgumentTypes);
 
 
 /**
@@ -47,7 +47,7 @@ bool ArgumentParserAddArgumentTypes(ArgumentType* argumentTypes, int64_t numberO
  * @param silent True if no error output to be printed in stderr
  * @return True upon success and false upon failure
  */
-bool ArgumentParserParseArguments(char** arguments, uint64_t numberOfArguments, bool silent);
+bool AMPLE_Utils_ArgumentParser_ParseArguments(char** arguments, uint64_t numberOfArguments, bool silent);
 
 
 /**
@@ -55,14 +55,14 @@ bool ArgumentParserParseArguments(char** arguments, uint64_t numberOfArguments, 
  * @param argument String long type check
  * @return True if it exists and false if not
  */
-bool ArgumentParserContainsArgument(const char* argument);
+bool AMPLE_Utils_ArgumentParser_ContainsArgument(const char* argument);
 
 /**
  * Get the number of bytes the value of the the argument has
  * @param argument String long type
  * @return A positive number for the bytes, 0 if there was no value and -1 if the argument does not exist
  */
-int64_t ArgumentParserGetArgumentValueStringLength(const char* argument);
+int64_t AMPLE_Utils_ArgumentParser_GetArgumentValueStringLength(const char* argument);
 
 /**
  * Get the value of an argument passed
@@ -71,7 +71,7 @@ int64_t ArgumentParserGetArgumentValueStringLength(const char* argument);
  * @param size Size the output
  * @return True if the copying was successful and false if not
  */
-bool ArgumentParserGetArgumentValueString(const char* argument, char* output, uint32_t size);
+bool AMPLE_Utils_ArgumentParser_GetArgumentValueString(const char* argument, char* output, uint32_t size);
 
 /**
  * Get the value of an argument passed as an int64
@@ -79,20 +79,20 @@ bool ArgumentParserGetArgumentValueString(const char* argument, char* output, ui
  * @param output int64 output
  * @return True if the copying was successful and false if not
  */
-bool ArgumentParserGetArgumentValueINT64(const char* argument, int64_t* output);
+bool AMPLE_Utils_ArgumentParser_GetArgumentValueINT64(const char* argument, int64_t* output);
 
 /**
  * Get the number of files parsed with the Argument Parser
  * @return The number of files parsed on success or -1 on failure
  */
-int64_t ArgumentParserGetNumberOfFiles();
+int64_t AMPLE_Utils_ArgumentParser_GetNumberOfFiles();
 
 /**
  * Get the number of bytes of how long is the next file
  * @param position Index of the file
  * @return Thr number of bytes of the file name
  */
-int64_t ArgumentParserGetFileNameLength(int64_t position);
+int64_t AMPLE_Utils_ArgumentParser_GetFileNameLength(int64_t position);
 
 /**
  * Copy filename of the given index to output
@@ -101,13 +101,13 @@ int64_t ArgumentParserGetFileNameLength(int64_t position);
  * @param size Number of bytes that has the output
  * @return True upon success and fale upon failure
  */
-bool ArgumentParserGetFileName(int64_t position, char* output, int64_t size);
+bool AMPLE_Utils_ArgumentParser_GetFileName(int64_t position, char* output, int64_t size);
 
 
 /**
  * Clean up and de initialize the Argument Parse library
  */
-void ArgumentParserCleanup();
+void AMPLE_Utils_ArgumentParser_Cleanup();
 
 
 #if defined(__cplusplus)

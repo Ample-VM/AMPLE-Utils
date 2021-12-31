@@ -6,7 +6,7 @@
 
 
 
-CList InitializeList(uint32_t initialSize)
+CList AMPLE_Utils_List_Initialize(uint32_t initialSize)
 {
     if (initialSize == 0)
         return NULL;
@@ -29,7 +29,7 @@ CList InitializeList(uint32_t initialSize)
     return listToBeReturned;
 }
 
-bool InsertElementToList(CList list, void* element)
+bool AMPLE_Utils_List_InsertElement(CList list, void* element)
 {
     if (!list)
         return false;
@@ -43,7 +43,7 @@ bool InsertElementToList(CList list, void* element)
     {
         if (lst->capacityLocked)
             return false;
-        if (!ResizeList(lst, lst->size * 2))
+        if (!AMPLE_Utils_List_Resize(lst, lst->size * 2))
             return false;
     }
 
@@ -53,7 +53,7 @@ bool InsertElementToList(CList list, void* element)
     return true;
 }
 
-void* GetElementFromList(CList list, uint32_t position)
+void* AMPLE_Utils_List_GetElement(CList list, uint32_t position)
 {
     if (!list)
         return 0;
@@ -69,7 +69,7 @@ void* GetElementFromList(CList list, uint32_t position)
     return (lst->ptrs)[position];
 }
 
-bool ResizeList(CList list, uint32_t newSize)
+bool AMPLE_Utils_List_Resize(CList list, uint32_t newSize)
 {
     if (!list)
         return false;
@@ -91,7 +91,7 @@ bool ResizeList(CList list, uint32_t newSize)
     return true;
 }
 
-uint32_t GetCapacityFromList(CList list)
+uint32_t AMPLE_Utils_List_GetCapacity(CList list)
 {
     if (!list)
         return 0;
@@ -104,7 +104,7 @@ uint32_t GetCapacityFromList(CList list)
     return lst->size;
 }
 
-uint32_t GetSizeFromList(CList list)
+uint32_t AMPLE_Utils_List_GetSize(CList list)
 {
     if (!list)
         return 0;
@@ -117,7 +117,7 @@ uint32_t GetSizeFromList(CList list)
     return lst->used;
 }
 
-bool ContainsValueInList(CList list, void* element, bool (*comparer)(void*, void*))
+bool AMPLE_Utils_List_ContainsValue(CList list, void* element, bool (*comparer)(void*, void*))
 {
     if (!list)
         return false;
@@ -127,7 +127,7 @@ bool ContainsValueInList(CList list, void* element, bool (*comparer)(void*, void
     if (!lst->initialized)
         return false;
 
-    uint32_t size = GetSizeFromList(list);
+    uint32_t size = AMPLE_Utils_List_GetSize(list);
 
     for (int i = 0; i < size; i++)
     {
@@ -137,7 +137,7 @@ bool ContainsValueInList(CList list, void* element, bool (*comparer)(void*, void
     return false;
 }
 
-void LockCapacityList(CList list)
+void AMPLE_Utils_List_LockCapacity(CList list)
 {
     if (!list)
         return;
@@ -150,7 +150,7 @@ void LockCapacityList(CList list)
     lst->capacityLocked = true;
 }
 
-void FreeList(CList list)
+void AMPLE_Utils_List_Free(CList list)
 {
     if (!list)
         return;

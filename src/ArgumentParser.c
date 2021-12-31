@@ -50,7 +50,7 @@ bool isArgumentParserInitialized = false;
  * Doubles the length of the arugmentTypes array and zeroes the new entries
  * @return true upon success and false upon failure
  */
-bool ArgumentParserDoubleArgumentTypesLength() {
+bool AMPLE_Utils_ArgumentParser_DoubleArgumentTypesLength() {
     if (!argumentTypes || argumentTypeCount == -1 || !isArgumentParserInitialized)
         return false;
 
@@ -74,7 +74,7 @@ bool ArgumentParserDoubleArgumentTypesLength() {
  * Doubles the length of the arugmentEntries array and zeroes the new entries
  * @return true upon success and false upon failure
  */
-bool ArgumentParserDoubleArgumentEntriesLength() {
+bool AMPLE_Utils_ArgumentParser_DoubleArgumentEntriesLength() {
     if (!argumentEntries || argumentEntryCount == -1 || !isArgumentParserInitialized)
         return false;
 
@@ -98,7 +98,7 @@ bool ArgumentParserDoubleArgumentEntriesLength() {
  * Doubles the length of the fileEntries array and zeroes the new entries
  * @return true upon success and false upon failure
  */
-bool ArgumentParserDoubleFileEntriesLength() {
+bool AMPLE_Utils_ArgumentParser_DoubleFileEntriesLength() {
     if (!fileEntries || fileEntryCount == -1 || !isArgumentParserInitialized)
         return false;
 
@@ -125,7 +125,7 @@ bool ArgumentParserDoubleFileEntriesLength() {
  * @param entryName C String of the argument entry to check if exists
  * @return non negative int of index if found or -1 in case it is not found
  */
-INLINE int64_t ArgumentParserGetEntryIndex(const char* entryName) {
+INLINE int64_t AMPLE_Utils_ArgumentParser_GetEntryIndex(const char* entryName) {
     if (!isArgumentParserInitialized || !argumentEntries || !entryName)
         return -1;
 
@@ -147,12 +147,12 @@ INLINE int64_t ArgumentParserGetEntryIndex(const char* entryName) {
  * @param position Position in the arguments passed to parse
  * @return true upon success and false upon failure
  */
-bool INLINE ArgumentParserInsertFileEntry(const char* fname, uint64_t position) {
-    if (!isArgumentParserInitialized || !fileEntries || !fname || fileEntryCount == -1 || !NFileExists(fname))
+bool INLINE AMPLE_Utils_ArgumentParser_InsertFileEntry(const char* fname, uint64_t position) {
+    if (!isArgumentParserInitialized || !fileEntries || !fname || fileEntryCount == -1 || !AMPLE_IO_NFile_Exists(fname))
         return false;
 
     if (fileEntrySize >= fileEntryCount) {
-        if (!ArgumentParserDoubleFileEntriesLength())
+        if (!AMPLE_Utils_ArgumentParser_DoubleFileEntriesLength())
             return false;
     }
 
@@ -173,7 +173,7 @@ bool INLINE ArgumentParserInsertFileEntry(const char* fname, uint64_t position) 
 }
 
 
-bool ArgumentParserInitialize() {
+bool AMPLE_Utils_ArgumentParser_Initialize() {
     if (isArgumentParserInitialized || argumentTypeCount != -1 || argumentEntryCount != -1 || fileEntryCount != -1)
         return false;
 
@@ -226,7 +226,7 @@ bool ArgumentParserAddArgumentType(ArgumentType* argType) {
         return false;
 
     if (argumentTypeSize >= argumentTypeCount) {
-        if (!ArgumentParserDoubleArgumentTypesLength())
+        if (!AMPLE_Utils_ArgumentParser_DoubleArgumentTypesLength())
             return false;
     }
 
@@ -263,7 +263,7 @@ bool ArgumentParserAddArgumentType(ArgumentType* argType) {
     return true;
 }
 
-bool ArgumentParserAddArgumentTypes(ArgumentType* argsType, int64_t numberOfArgumentTypes) {
+bool AMPLE_Utils_ArgumentParser_AddArgumentTypes(ArgumentType* argsType, int64_t numberOfArgumentTypes) {
     if (!isArgumentParserInitialized || !argumentTypes || !argsType || numberOfArgumentTypes < 0 || argumentTypeCount == -1)
         return false;
 
@@ -276,7 +276,7 @@ bool ArgumentParserAddArgumentTypes(ArgumentType* argsType, int64_t numberOfArgu
 }
 
 
-bool ArgumentParserParseArguments(char** arguments, uint64_t numberOfArguments, bool silent) {
+bool AMPLE_Utils_ArgumentParser_ParseArguments(char** arguments, uint64_t numberOfArguments, bool silent) {
     if (!isArgumentParserInitialized || !argumentTypes || !arguments || !argumentEntries || argumentEntryCount == -1 || !fileEntries || fileEntryCount == -1 || argumentTypeCount == -1) {
         PRINT_IF_NOT_SILENT(stderr, "AMPLE Argument Parser: AMPLE Argument Parser has not been initialized\n");
         return false;
@@ -299,7 +299,7 @@ bool ArgumentParserParseArguments(char** arguments, uint64_t numberOfArguments, 
         // Option detected
         if (arguments[i][0] == '-') {
             if (argumentEntrySize >= argumentEntryCount) {
-                if (!ArgumentParserDoubleArgumentEntriesLength()) {
+                if (!AMPLE_Utils_ArgumentParser_DoubleArgumentEntriesLength()) {
                     PRINT_IF_NOT_SILENT(stderr, "AMPLE Argument Parser: Can not extend the argumentEntry array\n");
                     return false;
                 }
@@ -384,8 +384,8 @@ bool ArgumentParserParseArguments(char** arguments, uint64_t numberOfArguments, 
             argumentEntrySize++;
         }
         // File detected
-        else if (NFileExists(arguments[i])) {
-            if (!ArgumentParserInsertFileEntry(arguments[i], i)) {
+        else if (AMPLE_IO_NFile_Exists(arguments[i])) {
+            if (!AMPLE_Utils_ArgumentParser_InsertFileEntry(arguments[i], i)) {
                 PRINT_IF_NOT_SILENT(stderr, "AMPLE Argument Parser: Can not insert file \"%s\" in the fileEntries array", arguments[i]);
                 return false;
             }
@@ -406,20 +406,20 @@ bool ArgumentParserParseArguments(char** arguments, uint64_t numberOfArguments, 
 }
 
 
-bool ArgumentParserContainsArgument(const char* argument)
+bool AMPLE_Utils_ArgumentParser_ContainsArgument(const char* argument)
 {
     if (!isArgumentParserInitialized || !argumentEntries || argumentEntryCount == -1 || !argument)
         return false;
 
-    return ArgumentParserGetEntryIndex(argument) != -1;
+    return AMPLE_Utils_ArgumentParser_GetEntryIndex(argument) != -1;
 }
 
-int64_t ArgumentParserGetArgumentValueStringLength(const char* argument)
+int64_t AMPLE_Utils_ArgumentParser_GetArgumentValueStringLength(const char* argument)
 {
     if (!isArgumentParserInitialized || !argumentEntries || argumentEntryCount == -1 || !argument)
         return false;
 
-    int64_t index = ArgumentParserGetEntryIndex(argument);
+    int64_t index = AMPLE_Utils_ArgumentParser_GetEntryIndex(argument);
 
     if (index == -1)
         return -1;
@@ -427,12 +427,12 @@ int64_t ArgumentParserGetArgumentValueStringLength(const char* argument)
     return argumentEntries[index].valueLength;
 }
 
-bool ArgumentParserGetArgumentValueString(const char* argument, char* output, uint32_t size)
+bool AMPLE_Utils_ArgumentParser_GetArgumentValueString(const char* argument, char* output, uint32_t size)
 {
     if (!isArgumentParserInitialized || !argumentEntries || argumentEntryCount == -1 || !argument || !output || size == 0)
         return false;
 
-    int64_t index = ArgumentParserGetEntryIndex(argument);
+    int64_t index = AMPLE_Utils_ArgumentParser_GetEntryIndex(argument);
 
     if (index == -1)
         return false;
@@ -444,12 +444,12 @@ bool ArgumentParserGetArgumentValueString(const char* argument, char* output, ui
     return true;
 }
 
-bool ArgumentParserGetArgumentValueINT64(const char* argument, int64_t* output)
+bool AMPLE_Utils_ArgumentParser_GetArgumentValueINT64(const char* argument, int64_t* output)
 {
     if (!isArgumentParserInitialized || !argumentEntries || argumentEntryCount == -1 || !argument || !output)
         return false;
 
-    int64_t index = ArgumentParserGetEntryIndex(argument);
+    int64_t index = AMPLE_Utils_ArgumentParser_GetEntryIndex(argument);
 
     if (index == -1)
         return false;
@@ -472,7 +472,7 @@ bool ArgumentParserGetArgumentValueINT64(const char* argument, int64_t* output)
     return true;
 }
 
-int64_t ArgumentParserGetNumberOfFiles()
+int64_t AMPLE_Utils_ArgumentParser_GetNumberOfFiles()
 {
     if (!isArgumentParserInitialized || !fileEntries || fileEntryCount == -1)
         return 0;
@@ -480,7 +480,7 @@ int64_t ArgumentParserGetNumberOfFiles()
     return fileEntrySize;
 }
 
-int64_t ArgumentParserGetFileNameLength(int64_t position)
+int64_t AMPLE_Utils_ArgumentParser_GetFileNameLength(int64_t position)
 {
     if (!isArgumentParserInitialized || !fileEntries || fileEntryCount == -1 || position < 0 || position >= fileEntryCount || !fileEntries[position].fname)
         return -1;
@@ -488,7 +488,7 @@ int64_t ArgumentParserGetFileNameLength(int64_t position)
     return strlen(fileEntries[position].fname);
 }
 
-bool ArgumentParserGetFileName(int64_t position, char* output, int64_t size)
+bool AMPLE_Utils_ArgumentParser_GetFileName(int64_t position, char* output, int64_t size)
 {
     if (!isArgumentParserInitialized || !fileEntries || fileEntryCount == -1 || position < 0 || position >= fileEntrySize || !fileEntries[position].fname || size < strlen(fileEntries[position].fname))
         return false;
@@ -498,7 +498,7 @@ bool ArgumentParserGetFileName(int64_t position, char* output, int64_t size)
     return true;
 }
 
-void ArgumentParserCleanup()
+void AMPLE_Utils_ArgumentParser_Cleanup()
 {
     if (!isArgumentParserInitialized)
         return;

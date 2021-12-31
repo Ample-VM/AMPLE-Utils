@@ -20,18 +20,18 @@ typedef struct
 
 #define CStack void*
 
-CStack InitializeStack();
+CStack AMPLE_Utils_Stack_Initialize();
 
-bool InsertElementToStack(CStack stack, void* element);
-bool RemoveElementFromStack(CStack stack);
+bool AMPLE_Utils_Stack_InsertElement(CStack stack, void* element);
+bool AMPLE_Utils_Stack_RemoveElement(CStack stack);
 
-void* GetElementFromStack(CStack stack);
-INLINE void* FastGetElementFromStack(CStack stack)
+void* AMPLE_Utils_Stack_GetElement(CStack stack);
+INLINE void* AMPLE_Utils_Stack_FastGetElement(CStack stack)
 {
     return ((StackP*)stack)->ptrs[((StackP*)stack)->top - 1];
 }
 
-void FreeStack(CStack stack);
+void AMPLE_Utils_Stack_Free(CStack stack);
 
 
 #ifdef __cplusplus

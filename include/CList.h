@@ -22,12 +22,12 @@ typedef struct
 
 #define CList void*
 
-CList InitializeList(uint32_t initialSize);
+CList AMPLE_Utils_List_Initialize(uint32_t initialSize);
 
-bool InsertElementToList(CList list, void* element);
+bool AMPLE_Utils_List_InsertElement(CList list, void* element);
 
-void* GetElementFromList(CList list, uint32_t position);
-INLINE void* FastGetElementFromList(CList list, uint32_t position)
+void* AMPLE_Utils_List_GetElement(CList list, uint32_t position);
+INLINE void* AMPLE_Utils_List_FastGetElement(CList list, uint32_t position)
 {
     if (((ListP*)list)->used <= position)
         return NULL;
@@ -35,16 +35,16 @@ INLINE void* FastGetElementFromList(CList list, uint32_t position)
     return (((ListP*)list)->ptrs)[position];
 }
 
-bool ResizeList(CList list, uint32_t newSize);
+bool AMPLE_Utils_List_Resize(CList list, uint32_t newSize);
 
-uint32_t GetCapacityFromList(CList list);
-uint32_t GetSizeFromList(CList list);
+uint32_t AMPLE_Utils_List_GetCapacity(CList list);
+uint32_t AMPLE_Utils_List_GetSize(CList list);
 
-bool ContainsValueInList(CList list, void* element, bool (*comparer)(void*, void*));
+bool AMPLE_Utils_List_ContainsValue(CList list, void* element, bool (*comparer)(void*, void*));
 
-void LockCapacityList(CList list);
+void AMPLE_Utils_List_LockCapacity(CList list);
 
-void FreeList(CList list);
+void AMPLE_Utils_List_Free(CList list);
 
 #ifdef __cplusplus
 }

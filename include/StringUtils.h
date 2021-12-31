@@ -3,4 +3,4 @@
 #include <stdbool.h>
 
 
-bool StringEqual(void* str1, void* str2);
+bool AMPLE_Utils_StringUtils_Equal(void* str1, void* str2);

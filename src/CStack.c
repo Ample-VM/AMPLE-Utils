@@ -4,7 +4,7 @@
 
 #include "CStack.h"
 
-CStack InitializeStack()
+CStack AMPLE_Utils_Stack_Initialize()
 {
     StackP* stackToBeReturned = (StackP*)malloc(sizeof(StackP*));
     if (!stackToBeReturned)
@@ -23,7 +23,7 @@ CStack InitializeStack()
     return (CStack)stackToBeReturned;
 }
 
-bool InsertElementToStack(CStack stack, void* element)
+bool AMPLE_Utils_Stack_InsertElement(CStack stack, void* element)
 {
     if (!stack)
         return false;
@@ -41,7 +41,7 @@ bool InsertElementToStack(CStack stack, void* element)
     return true;
 }
 
-bool RemoveElementFromStack(CStack stack)
+bool AMPLE_Utils_Stack_RemoveElement(CStack stack)
 {
     if (!stack)
         return false;
@@ -51,7 +51,7 @@ bool RemoveElementFromStack(CStack stack)
     return true;
 }
 
-void* GetElementFromStack(CStack stack)
+void* AMPLE_Utils_Stack_GetElement(CStack stack)
 {
     if (!stack)
         return NULL;
@@ -60,7 +60,7 @@ void* GetElementFromStack(CStack stack)
     return stck->ptrs[stck->top - 1];
 }
 
-void FreeStack(CStack stack)
+void AMPLE_Utils_Stack_Free(CStack stack)
 {
     if (!stack)
         return;

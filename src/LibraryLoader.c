@@ -41,10 +41,10 @@ static void* OpenLibrary(const char* Location)
 
 const char* HomeDir = NULL;
 
-Library* LoadOPCodeVersion(uint32_t Version)
+Library* AMPLE_Utils_LibraryLoader_LoadOPCodeVersion(uint32_t Version)
 {
     if (!HomeDir)
-        HomeDir = GetHomeDir();
+        HomeDir = AMPLE_IO_Directory_GetHomeDir();
 
     uint32_t LibPosSize = strlen(HomeDir) + 15;
 #if defined(__WINDOWS__)
@@ -107,9 +107,9 @@ Library* LoadOPCodeVersion(uint32_t Version)
     return (Library*)lib;
 }
 
-Library* LoadLib(const char* LibraryName) {
+Library* AMPLE_Utils_LibraryLoader_LoadLib(const char* LibraryName) {
     if (!HomeDir)
-        HomeDir = GetHomeDir();
+        HomeDir = AMPLE_IO_Directory_GetHomeDir();
 
     uint32_t LibPosSize = strlen(HomeDir) + 2 * strlen(LibraryName) + 10;
 #if defined(__WINDOWS__)
@@ -174,7 +174,7 @@ Library* LoadLib(const char* LibraryName) {
     return (Library*)lib;
 }
 
-void* GetFuncFromLib(Library* Lib, const char* FunctionName)
+void* AMPLE_Utils_LibraryLoader_GetFuncFromLib(Library* Lib, const char* FunctionName)
 {
     if (!Lib || !((LibStruct*)Lib)->LibPtr)
         return NULL;
@@ -190,7 +190,7 @@ void* GetFuncFromLib(Library* Lib, const char* FunctionName)
     return FunctionPointer;
 }
 
-void UnloadLib(Library* Lib)
+void AMPLE_Utils_LibraryLoader_UnloadLib(Library* Lib)
 {
     if (!Lib)
         return;

@@ -9,10 +9,10 @@ extern "C" {
 
 #define Library void*
 
-Library* LoadOPCodeVersion(uint32_t Version);
-Library* LoadLib(const char* LibraryName);
-void* GetFuncFromLib(Library* Lib, const char* FunctionName);
-void UnloadLib(Library* Lib);
+Library* AMPLE_Utils_LibraryLoader_LoadOPCodeVersion(uint32_t Version);
+Library* AMPLE_Utils_LibraryLoader_LoadLib(const char* LibraryName);
+void* AMPLE_Utils_LibraryLoader_GetFuncFromLib(Library* Lib, const char* FunctionName);
+void AMPLE_Utils_LibraryLoader_UnloadLib(Library* Lib);
 
 #ifdef __cplusplus
 }
